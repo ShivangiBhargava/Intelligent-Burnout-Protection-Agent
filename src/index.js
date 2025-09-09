@@ -62,8 +62,8 @@ app.get('/callback', async (req, res) => {
     }
 
     res.send(`
-      <h1>Welcome to Ember! 🔥</h1>
-      <p>Your calendar is now connected. Ember will now run automatically in the background.</p>
+      <h1>Welcome to Intelligent Burnout Protection Agent! 🔥</h1>
+      <p>Your calendar is now connected. AI Agent will now run automatically in the background.</p>
       <p>To test it, create events like "Study", "Meeting", or work past 7 PM in your Google Calendar.</p>
       <p>You can close this window.</p>
     `);
@@ -75,7 +75,7 @@ app.get('/callback', async (req, res) => {
 
 // ===== BURNOUT PROTECTION RULESET ENGINE =====
 async function protectUser(userId) {
-  console.log(`\n[Ember] Checking calendar for user: ${userId}`);
+  console.log(`\n[Agent] Checking calendar for user: ${userId}`);
   let actionsTaken = 0;
   const actionLog = []; // To log what we did
 
@@ -139,7 +139,7 @@ async function protectUser(userId) {
 
         if (existingBuffers.length === 0) {
           const bufferEvent = {
-            summary: '🛡️ Buffer Time (by Ember)',
+            summary: '🛡️ Buffer Time (by Agent)',
             description: 'Automatically added to prevent meeting fatigue and burnout.',
             start: { dateTime: meeting2.end.toISOString() },
             end: { dateTime: new Date(meeting2.end.getTime() + 15 * 60 * 1000).toISOString() },
@@ -169,7 +169,7 @@ async function protectUser(userId) {
 
     if (!hasLunch) {
       const lunchEvent = {
-        summary: '🍽️ Lunch Break (by Ember)',
+        summary: '🍽️ Lunch Break (by Agent)',
         description: 'Automatically added to ensure you take time to recharge and refuel.',
         start: { dateTime: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12, 15, 0).toISOString() },
         end: { dateTime: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 13, 0, 0).toISOString() },
@@ -202,7 +202,7 @@ async function protectUser(userId) {
             const breakEnd = new Date(midPoint.getTime() + 20 * 60 * 1000);
             
             const breakEvent = {
-              summary: '💧 Recharge Break (by Ember)',
+              summary: '💧 Recharge Break (by Agent)',
               description: 'Time to hydrate, stretch, and reset. Your focus will thank you!',
               start: { dateTime: midPoint.toISOString() },
               end: { dateTime: breakEnd.toISOString() },
@@ -241,7 +241,7 @@ async function protectUser(userId) {
       const hardStopTime = new Date(lastWorkEvent.getTime() + 5 * 60 * 1000); // 5 min after last event
       
       const hardStopEvent = {
-        summary: '🌙 Hard Stop: Wind Down (by Ember)',
+        summary: '🌙 Hard Stop: Wind Down (by Agent)',
         description: 'Your workday is officially over. Time to rest and recharge for tomorrow.',
         start: { dateTime: hardStopTime.toISOString() },
         end: { dateTime: new Date(hardStopTime.getTime() + 30 * 60 * 1000).toISOString() },
@@ -269,7 +269,7 @@ async function protectUser(userId) {
 
 // ===== SCHEDULER & MANUAL TRIGGER =====
 cron.schedule('*/20 * * * *', async () => {
-  console.log('\n=== [Ember] Running scheduled protection check ===');
+  console.log('\n=== [Agent] Running scheduled protection check ===');
   await loadUsers();
   
   let totalActions = 0;
@@ -278,7 +278,7 @@ cron.schedule('*/20 * * * *', async () => {
     totalActions += result.actions;
   }
   
-  console.log(`=== [Ember] Check complete. Took ${totalActions} protective actions. ===\n`);
+  console.log(`=== [Agent] Check complete. Took ${totalActions} protective actions. ===\n`);
 });
 
 app.get('/run-now', async (req, res) => {
@@ -293,14 +293,14 @@ app.get('/run-now', async (req, res) => {
     }
   }
   
-  res.send(`<h1>Ember Manual Run</h1><pre>${results.join('\n')}</pre>`);
+  res.send(`<h1>Agent Manual Run</h1><pre>${results.join('\n')}</pre>`);
 });
 
 // ===== START THE SERVER =====
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, async () => {
   await loadUsers();
-  console.log(`\n🔥 Ember Burnout Protector is running on http://localhost:${PORT}`);
+  console.log(`\n🔥 Intelligent Burnout Protection Agent is running on http://localhost:${PORT}`);
   console.log(`🔗 Connect your calendar: http://localhost:${PORT}/auth`);
   console.log(`⏰ Agent will run automatically every 20 minutes`);
   console.log(`🧪 Manual test: http://localhost:${PORT}/run-now`);
