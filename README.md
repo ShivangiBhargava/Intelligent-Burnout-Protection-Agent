@@ -38,7 +38,7 @@ This project addresses **Theme 1: Build a purposeful AI agent** by:
 
 # 1. Clone the Repository
 ```bash
-git clone <url>
+git clone https://github.com/ShivangiBhargava/Intelligent-Burnout-Protection-Agent.git
 cd <project folder>
 ```
 
